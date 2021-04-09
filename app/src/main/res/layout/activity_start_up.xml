@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/imgid"
+        android:src="@drawable/refr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_above="@id/textid"
+        android:paddingBottom="50dp"
+        android:text="어플리케이션 이름"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:textSize="15sp"
+        android:id="@+id/textid"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:text="안드루이드 - @2021"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
