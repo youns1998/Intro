@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.intro.R;
 
 //오프닝 로딩 화면 액티비티
 public class WelcomeActivity extends AppCompatActivity {
