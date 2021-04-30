@@ -1,4 +1,4 @@
-package com.example.intro;
+package com.example.intro.welcome;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import com.example.intro.PrefManager;
+
 import com.example.intro.R;
 
 //앱의 인트로 화면 불러오는 액티비티

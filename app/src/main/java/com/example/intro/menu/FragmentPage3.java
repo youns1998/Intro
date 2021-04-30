@@ -1,4 +1,4 @@
-package com.example.intro;
+package com.example.intro.menu;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.intro.R;
+// 최근기록 기능
 public class FragmentPage3 extends Fragment {
 
     @Nullable

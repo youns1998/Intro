@@ -1,4 +1,4 @@
-package com.example.intro;
+package com.example.intro.menu;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,13 +9,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class FragmentPage1 extends Fragment {
+import com.example.intro.R;
+// 즐겨찾기 기능
+public class FragmentPage2 extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_page_1, container, false);
+        return inflater.inflate(R.layout.fragment_page_2, container, false);
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

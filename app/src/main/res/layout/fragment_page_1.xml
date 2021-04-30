@@ -14,6 +14,11 @@
         android:layout_height="wrap_content"
         android:text="Page_1"
         android:textSize="100dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="검색 완료"
+        android:id="@+id/searchBtn"/>
 
 
 </LinearLayout>

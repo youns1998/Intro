@@ -1,4 +1,4 @@
-package com.example.intro;
+package com.example.intro.welcome;
 
 import android.content.Context;
 import android.content.SharedPreferences;
