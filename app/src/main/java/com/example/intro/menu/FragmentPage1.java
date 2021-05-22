@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.intro.R;
-import com.example.intro.listActivity;
+import com.example.intro.RecipeList;
 
 // 검색 기능
 public class FragmentPage1 extends Fragment {
@@ -27,7 +27,7 @@ public class FragmentPage1 extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), listActivity.class);
+                Intent intent = new Intent(getActivity(), RecipeList.class);
                 startActivity(intent);
             }
         });

@@ -20,6 +20,4 @@ public class Recipe {
     public void setImage(String image) {
         Image = image;
     }
-
-
 }
