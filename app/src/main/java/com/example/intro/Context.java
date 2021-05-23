@@ -2,7 +2,6 @@ package com.example.intro;
 
 public class Context {
 
-
     String recipe;
     String image;
 
