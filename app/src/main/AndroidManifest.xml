@@ -21,9 +21,8 @@
         </activity>
         <activity android:name=".welcome.WelcomeActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".database.RecipeList"/>
-        <activity android:name=".database.MainDbActivity"/>
-        <activity android:name=".database.DetailList"/>
+        <activity android:name=".RecipeList"/>
+        <activity android:name=".DetailList"/>
     </application>
 
 </manifest>
