@@ -10,6 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.intro.R;
+
+import java.util.ArrayList;
+
 // 즐겨찾기 기능
 public class FragmentPage2 extends Fragment {
 
