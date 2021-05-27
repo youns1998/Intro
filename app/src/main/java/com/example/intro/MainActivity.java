@@ -109,28 +109,24 @@ public class MainActivity extends AppCompatActivity {
 
                         ArrayList<Context> arraylist =new ArrayList<>();
                         databaseReference=database.getReference();//db 연결하는 부 지정
-
-                        Recipe recipe= new Recipe();//받아온 데이터(전체적인 요리 제목,사진,재료) 저장할 객체인 recipe 생성
-
                         Document webPage = Jsoup.connect("https://www.10000recipe.com/recipe/6952" + i).get(); //크롤링할 주소
 
                         //제목 크롤링
                         String webTitle = webPage.title(); //웹페이지 제목을 불러옴
                         builder_title.append(webTitle); //제목 저장
-                        recipe.setTitle(builder_title.toString());//제목을 db에 올리기 위해서 객체에 넣기
 
                         //메인이미지 크롤링
                         Elements mainImgClass = webPage.select("#main_thumbs"); //메인이미지가 삽입된 클래스 id
                         String mainImg = mainImgClass.attr("src"); //해당 클래스에서 src(이미지주소)부분 저장
                         builder_mainImage.append(mainImg); //src 문자열 저장
-                        recipe.setImage(builder_mainImage.toString());//이미지를 db에 올리기 위해서 객체에 넣기
 
                         //재료 크롤링
                         Elements ingreClass = webPage.select("div.ready_ingre3"); //재료부분 div 클래스
                         Elements ingreUl = ingreClass.select("ul"); //재료부분 ul태그 분리
                         String ingre = ingreUl.text(); //ul태그 내에 텍스트를 저장
                         builder_ingre.append(ingre); //재료텍스트 문자열 저장
-                        databaseReference.child("data").child("recipe" + index).setValue(recipe);
+                        databaseReference.child("data").child("recipe" + index).child("title").setValue(builder_title.toString());
+                        databaseReference.child("data").child("recipe" + index).child("image").setValue(builder_mainImage.toString());
                         databaseReference.child("data").child("recipe" + index).child("ingredient").setValue(builder_ingre.toString());
 
                         databaseReference = database.getReference("data/recipe" + index + "/Context");//상세한 데이터(요리법, 요리법별 사진을 저장하기위한 db 위치 불러오기)
