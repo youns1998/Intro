@@ -1,4 +1,4 @@
-package com.example.intro.database;
+package com.example.intro.firebase;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,46 +18,39 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class DetailList extends AppCompatActivity {
+public class RecipeList extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
-
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    protected ArrayList<Context> arrayList;
+    private ArrayList<TotalRecipe> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detaillist);
+        setContentView(R.layout.activity_recipelist);
+        Intent intent = getIntent();
+        String searchtag = intent.getStringExtra("taglist");
 
-
-        database = FirebaseDatabase.getInstance();//파이어베이스 데이터베이스 연동
-        recyclerView = findViewById(R.id.DetailContext);
-        recyclerView.setHasFixedSize(true);//성능강화
+        database= FirebaseDatabase.getInstance();//파이어베이스 데이터베이스 연동
+        recyclerView=findViewById(R.id.RecipeListView);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
 
-        Intent DetailIntent = getIntent();
-
-        database = FirebaseDatabase.getInstance();
-        /*databaseReference=database.getReference("data").child("recipe001").child("Context");*/
-        databaseReference = database.getReference("data");
+        database= FirebaseDatabase.getInstance();
+        databaseReference=database.getReference("data");
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot Snapshot) {
                 arrayList.clear();
-                for (DataSnapshot snapshot : Snapshot.getChildren()) {
-                    if(snapshot.child("title").getValue().equals(DetailIntent.getStringExtra("Title")))
-                    {
-                        for(DataSnapshot k : snapshot.child("Context").getChildren())
-                        {
-                            Context context=k.getValue(Context.class);
-                            arrayList.add(context);
-                        }
+                for(DataSnapshot snapshot : Snapshot.getChildren())
+                {
+                    TotalRecipe totalRecipe=snapshot.getValue(TotalRecipe.class);
+                    if (totalRecipe.getTitle().contains(searchtag)) {           //여기가 검색 거르는곳
+                        arrayList.add(totalRecipe);
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -66,9 +59,10 @@ public class DetailList extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("MainActivity", String.valueOf(error.toException()));
+
             }
         });
-        adapter = new DetailAdapter(arrayList,this);
+        adapter = new RecipeListAdapter(arrayList,this);
         recyclerView.setAdapter(adapter);
     }
 }

@@ -17,8 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.intro.R;
-import com.example.intro.database.MainDbActivity;
-import com.example.intro.database.RecipeList;
+import com.example.intro.firebase.RecipeList;
 
 import java.util.ArrayList;
 import java.util.Arrays;

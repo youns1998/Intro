@@ -1,4 +1,4 @@
-package com.example.intro.database;
+package com.example.intro.firebase;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,11 @@
-package com.example.intro.database;
+package com.example.intro.firebase;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.intro.R;
+import com.example.intro.sqlite.MyTable;
+import com.example.intro.sqlite.MyTableList;
 
 import java.util.ArrayList;
 
@@ -19,6 +23,8 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Cu
 
     private ArrayList<TotalRecipe> arrayList;
     private RecipeList context;//이부분 이상함 oncreate에서 this면 context로 넘어가야하는데 context가 아닌 MainActivity반환
+
+
 
     public RecipeListAdapter(ArrayList<TotalRecipe> arrayList, RecipeList context) {
         this.arrayList = arrayList;
@@ -66,6 +72,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Cu
                         Intent intent = new Intent(context, DetailList.class);
 
                         intent.putExtra("Title",arrayList.get(pos).getTitle());
+//                        System.out.println("여기가 음식 방문시점");
 
                         context.startActivity(intent);
                         // TODO : use item.
