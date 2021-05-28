@@ -1,25 +1,27 @@
 package com.example.intro.firebase;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ToggleButton;
+
 import com.example.intro.R;
-import com.example.intro.sqlite.MyTable;
-import com.example.intro.sqlite.MyTableList;
+import com.example.intro.firebase.DetailAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-//글 액티비티
+
 public class DetailList extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
@@ -28,16 +30,12 @@ public class DetailList extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     protected ArrayList<Context> arrayList;
-    private String arData;
-
+    final String[] key = new String[1];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detaillist);
-
-        MyTable mMyTable = new MyTable(this);
-
         database = FirebaseDatabase.getInstance();//파이어베이스 데이터베이스 연동
         recyclerView = findViewById(R.id.DetailContext);
         recyclerView.setHasFixedSize(true);//성능강화
@@ -45,12 +43,20 @@ public class DetailList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
+        Button back;
+        back = (Button)findViewById(R.id.btnReturn);
+        ToggleButton star;
+        back.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                onBackPressed();
+            }
+        });
 
         Intent DetailIntent = getIntent();
-
         database = FirebaseDatabase.getInstance();
         /*databaseReference=database.getReference("data").child("recipe001").child("Context");*/
         databaseReference = database.getReference("data");
+
 
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -60,15 +66,14 @@ public class DetailList extends AppCompatActivity {
                 for (DataSnapshot snapshot : Snapshot.getChildren()) {
                     if(snapshot.child("title").getValue().equals(DetailIntent.getStringExtra("Title")))
                     {
-//                        System.out.println(snapshot.getValue());
-                        mMyTable.insert(2,DetailIntent.getStringExtra("Title"));
+                        key[0] =snapshot.getKey();
+                        databaseReference=database.getReference("data/"+key[0]);
+                        databaseReference.child("Recent").setValue("1");
                         for(DataSnapshot k : snapshot.child("Context").getChildren())
                         {
                             Context context=k.getValue(Context.class);
                             arrayList.add(context);
                         }
-                        mMyTable.selectAll();
-
                     }
                 }
                 adapter.notifyDataSetChanged();
@@ -81,5 +86,23 @@ public class DetailList extends AppCompatActivity {
         });
         adapter = new DetailAdapter(arrayList,this);
         recyclerView.setAdapter(adapter);
+        star = (ToggleButton)findViewById(R.id.btnOpenApproval);
+        star.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if(isChecked==true)
+                        {
+                            databaseReference=database.getReference("data/"+key[0]);
+                            databaseReference.child("isMarked").setValue("1");
+                        }
+                        else if(isChecked==false)
+                        {
+                            databaseReference=database.getReference("data/"+key[0]);
+                            databaseReference.child("isMarked").setValue("0");
+                        }
+                    }
+                }
+        );
     }
 }

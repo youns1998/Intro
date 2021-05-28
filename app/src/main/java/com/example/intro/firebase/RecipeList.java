@@ -1,5 +1,4 @@
 package com.example.intro.firebase;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.intro.R;
+import com.example.intro.firebase.RecipeListAdapter;
+import com.example.intro.firebase.TotalRecipe;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +33,8 @@ public class RecipeList extends AppCompatActivity {
         setContentView(R.layout.activity_recipelist);
         Intent intent = getIntent();
         String searchtag = intent.getStringExtra("taglist");
+        System.out.println(searchtag);
+
 
         database= FirebaseDatabase.getInstance();//파이어베이스 데이터베이스 연동
         recyclerView=findViewById(R.id.RecipeListView);
@@ -49,7 +52,7 @@ public class RecipeList extends AppCompatActivity {
                 for(DataSnapshot snapshot : Snapshot.getChildren())
                 {
                     TotalRecipe totalRecipe=snapshot.getValue(TotalRecipe.class);
-                    if (totalRecipe.getTitle().contains(searchtag)) {           //여기가 검색 거르는곳
+                    if (totalRecipe.getTitle().contains(searchtag)) {
                         arrayList.add(totalRecipe);
                     }
                 }

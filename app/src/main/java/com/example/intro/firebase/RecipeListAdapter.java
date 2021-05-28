@@ -1,11 +1,9 @@
 package com.example.intro.firebase;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.intro.R;
-import com.example.intro.sqlite.MyTable;
-import com.example.intro.sqlite.MyTableList;
 
 import java.util.ArrayList;
 

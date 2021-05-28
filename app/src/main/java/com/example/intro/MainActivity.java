@@ -3,71 +3,55 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.intro.R;
 import com.example.intro.menu.FragmentPage1;
 import com.example.intro.menu.FragmentPage2;
 import com.example.intro.menu.FragmentPage3;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private BottomNavigationView mBottomNV;
+
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private FragmentPage1 fragmentp1 = new FragmentPage1();
+    private FragmentPage2 fragmentp2 = new FragmentPage2();
+    private FragmentPage3 fragmentp3 = new FragmentPage3();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-        mBottomNV = findViewById(R.id.nav_view);
-        mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                BottomNavigate(menuItem.getItemId());
+        setContentView(R.layout.activity_main); //메인 화면 레이아웃 연결 -> 프래그먼트 아님
 
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.content_layout, fragmentp1).commitAllowingStateLoss(); // 가장 먼저 등장할 프래그먼트 화면 레이아웃 fragmentSearch
 
-                return true;
-            }
-        });
-        mBottomNV.setSelectedItemId(R.id.navigation_1);
-    }
-    private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경
-        String tag = String.valueOf(id);
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        Fragment currentFragment = fragmentManager.getPrimaryNavigationFragment();
-        if (currentFragment != null) {
-            fragmentTransaction.hide(currentFragment);
-        }
-
-        Fragment fragment = fragmentManager.findFragmentByTag(tag);
-        if (fragment == null) {
-            if (id == R.id.navigation_1) {
-                fragment = new FragmentPage1();
-
-            } else if (id == R.id.navigation_2){
-
-                fragment = new FragmentPage2();
-            }else {
-                fragment = new FragmentPage3();
-            }
-
-            fragmentTransaction.add(R.id.content_layout, fragment, tag);
-        } else {
-            fragmentTransaction.show(fragment);
-        }
-
-        fragmentTransaction.setPrimaryNavigationFragment(fragment);
-        fragmentTransaction.setReorderingAllowed(true);
-        fragmentTransaction.commitNow();
-
-
+        BottomNavigationView bottomNavigationView = findViewById(R.id.nav_view); //메인화면에서, bottmnavigationview 연결
+        bottomNavigationView.setOnNavigationItemSelectedListener(new ItemSelectedListener());
     }
 
+    class ItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener{ //bottomnavigaion에서 각 아이템을 클릭했을 때
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+            switch(menuItem.getItemId())
+            {
+                case R.id.navigation_1:
+                    transaction.replace(R.id.content_layout, fragmentp1).commitAllowingStateLoss();
+
+                    break;
+                case R.id.navigation_2:
+                    transaction.replace(R.id.content_layout, fragmentp2).commitAllowingStateLoss();
+                    break;
+                case R.id.navigation_3:
+                    transaction.replace(R.id.content_layout, fragmentp3).commitAllowingStateLoss();
+                    break;
+            }
+            return true;
+        }
+    }
 }
-

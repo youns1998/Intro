@@ -16,13 +16,12 @@
             android:theme="@style/Theme.AppCompat">
 
             <Button
-                android:gravity="end"
+                android:id="@+id/btnReturn"
                 android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:text="뒤로가기"
-                android:textStyle="bold"
-                android:background="@color/white"
-                />
+                android:layout_height="wrap_content"
+                android:text="←"
+                android:textSize="30dp"/>
+
 
         </androidx.appcompat.widget.Toolbar>
 

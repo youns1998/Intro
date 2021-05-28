@@ -52,7 +52,7 @@ public class FragmentPage1 extends Fragment {
                 //키보드 상에서 엔터키 입력받음
                 if(keyEvent.getAction() == KeyEvent.ACTION_DOWN && keycode == KeyEvent.KEYCODE_ENTER){
                     //엔터키 이벤트 동작확인 토스트 메시지
-                   // Toast.makeText(getActivity().getApplicationContext(), "태그 생성", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getActivity().getApplicationContext(), "태그 생성", Toast.LENGTH_SHORT).show();
 
                     //버튼추가 함수에 넘겨줄 문자열. 검색창 내용을 복사
                     String a1 = autoCompleteTextView.getText().toString();
