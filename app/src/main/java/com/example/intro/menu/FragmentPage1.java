@@ -110,6 +110,7 @@ public class FragmentPage1 extends Fragment {
                 //배열 출력
                 String list = Arrays.toString(taglist.toArray()).replace("[", "").replace("]", "")
                         .replace(",", "").replace("\n", "");
+                System.out.println(list);
                 Intent intent = new Intent(getActivity(), RecipeList.class);
                 intent.putExtra("taglist", list);
                 startActivity(intent);

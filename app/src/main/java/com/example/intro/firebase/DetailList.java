@@ -30,7 +30,6 @@ public class DetailList extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     protected ArrayList<Context> arrayList;
-    final String[] key = new String[1];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +42,11 @@ public class DetailList extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         arrayList = new ArrayList<>();
-        Button back;
+        final String[] key = new String[1];
+        Button back,CancleBookMark,BookMark;
+        CancleBookMark=(Button)findViewById(R.id.btnCancleMark);
+        BookMark=(Button)findViewById(R.id.btnBookMark);
         back = (Button)findViewById(R.id.btnReturn);
-        ToggleButton star;
         back.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 onBackPressed();
@@ -56,9 +57,6 @@ public class DetailList extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         /*databaseReference=database.getReference("data").child("recipe001").child("Context");*/
         databaseReference = database.getReference("data");
-
-
-
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot Snapshot) {
@@ -67,8 +65,6 @@ public class DetailList extends AppCompatActivity {
                     if(snapshot.child("title").getValue().equals(DetailIntent.getStringExtra("Title")))
                     {
                         key[0] =snapshot.getKey();
-                        databaseReference=database.getReference("data/"+key[0]);
-                        databaseReference.child("Recent").setValue("1");
                         for(DataSnapshot k : snapshot.child("Context").getChildren())
                         {
                             Context context=k.getValue(Context.class);
@@ -86,21 +82,21 @@ public class DetailList extends AppCompatActivity {
         });
         adapter = new DetailAdapter(arrayList,this);
         recyclerView.setAdapter(adapter);
-        star = (ToggleButton)findViewById(R.id.btnOpenApproval);
-        star.setOnCheckedChangeListener(
-                new CompoundButton.OnCheckedChangeListener() {
+        CancleBookMark.setOnClickListener(
+                new View.OnClickListener() {
                     @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if(isChecked==true)
-                        {
-                            databaseReference=database.getReference("data/"+key[0]);
-                            databaseReference.child("isMarked").setValue("1");
-                        }
-                        else if(isChecked==false)
-                        {
-                            databaseReference=database.getReference("data/"+key[0]);
-                            databaseReference.child("isMarked").setValue("0");
-                        }
+                    public void onClick(View v) {
+                        databaseReference=database.getReference("data/"+key[0]);
+                        databaseReference.child("isMarked").setValue("0");
+                    }
+                }
+        );
+        BookMark.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        databaseReference=database.getReference("data/"+key[0]);
+                        databaseReference.child("isMarked").setValue("1");
                     }
                 }
         );

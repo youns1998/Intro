@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class RecipeList extends AppCompatActivity {
     private FirebaseDatabase database;
@@ -33,7 +34,12 @@ public class RecipeList extends AppCompatActivity {
         setContentView(R.layout.activity_recipelist);
         Intent intent = getIntent();
         String searchtag = intent.getStringExtra("taglist");
-        System.out.println(searchtag);
+        StringTokenizer st = new StringTokenizer(searchtag);
+        ArrayList<String> ingred= new ArrayList<>();
+        while(st.hasMoreTokens()==true)
+        {
+            ingred.add(st.nextToken());
+        }
 
 
         database= FirebaseDatabase.getInstance();//파이어베이스 데이터베이스 연동
@@ -48,13 +54,21 @@ public class RecipeList extends AppCompatActivity {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot Snapshot) {
-                arrayList.clear();
+                arrayList.clear(); int i =0;
                 for(DataSnapshot snapshot : Snapshot.getChildren())
                 {
-                    TotalRecipe totalRecipe=snapshot.getValue(TotalRecipe.class);
-                    if (totalRecipe.getTitle().contains(searchtag)) {
+                    TotalRecipe totalRecipe = snapshot.getValue(TotalRecipe.class);
+
+                    for(String k : ingred){
+
+                        if (totalRecipe.getIngredient().contains(k) ){
+                                i++;
+                        }
+                    }
+                    if(i==ingred.size()) {
                         arrayList.add(totalRecipe);
                     }
+                    i=0;
                 }
                 adapter.notifyDataSetChanged();
             }
