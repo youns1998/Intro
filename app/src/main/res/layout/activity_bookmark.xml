@@ -13,7 +13,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@drawable/gra"
             android:theme="@style/Theme.AppCompat">
 
             <Button
@@ -21,13 +21,15 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="←"
-                android:textSize="30dp"/>
+                android:textSize="30dp"
+                android:background="#00ff0000"/>
             <Button
                 android:id="@+id/btnrefresh"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="refresh"
-                android:textSize="10dp"/>
+                android:textSize="10dp"
+                android:background="#00ff0000"/>
 
         </androidx.appcompat.widget.Toolbar>
 

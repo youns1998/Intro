@@ -1,5 +1,6 @@
 package com.example.intro.firebase;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
@@ -35,6 +37,15 @@ public class DetailList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detaillist);
+
+        //상태바 제거
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        //액션바 제거
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         database = FirebaseDatabase.getInstance();//파이어베이스 데이터베이스 연동
         recyclerView = findViewById(R.id.DetailContext);
         recyclerView.setHasFixedSize(true);//성능강화

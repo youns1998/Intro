@@ -2,8 +2,10 @@ package com.example.intro.firebase;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +34,15 @@ public class RecipeList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipelist);
+
+        //상태바 제거
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        //액션바 사라지게 하기
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         Intent intent = getIntent();
         String searchtag = intent.getStringExtra("taglist");
         StringTokenizer st = new StringTokenizer(searchtag);

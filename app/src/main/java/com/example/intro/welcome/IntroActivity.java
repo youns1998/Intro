@@ -34,6 +34,11 @@ public class IntroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //상태바 제거
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+
         prefManager = new PrefManager(this);
         if (prefManager.isFirstTimeLaunch()) {            //if문 ! 추가하면 한 번 방문 이후로 안뜸
             launchHomeScreen();
